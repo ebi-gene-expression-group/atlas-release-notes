@@ -7,9 +7,14 @@ title: Blog
     <li>
       <h3>
       	<img src="assets/img/atlas-release.png" alt="Atlas release" style="height: 64px"/>
-      	{{ post.date| date: " %d %B %Y" }}
-      	{% if post.imgurl %} 
-      		<img src={{post.imgurl}} alt="Atlas release" style="height: 88px"/>
+        {% if post.customtitle %}
+          {{ post.customtitle }}
+        {% else %}
+          {{ post.date | date: "%d %B %Y" }}
+        {% endif %}
+
+      	{% if post.imgurl %}
+      		<img src={{post.imgurl}} alt="Atlas release" style="height: 92px"/>
       	{% endif %}
       </h3>
       <p>{{ post.content }}</p>
