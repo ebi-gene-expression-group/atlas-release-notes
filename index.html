@@ -2,22 +2,20 @@
 layout: default
 title: Blog
 ---
-<ul style="list-style: none;">
-  {% for post in site.posts %}
-    <li>
-      <h3>
-      	<img src="assets/img/atlas-release.png" alt="Atlas release" style="height: 64px"/>
-        {% if post.customtitle %}
-          {{ post.customtitle }}
-        {% else %}
-          {{ post.date | date: "%d %B %Y" }}
-        {% endif %}
+{% for post in site.posts %}
+  <section>
+    <h3>
+    	<img src="assets/img/atlas-release.png" alt="Atlas release" style="height: 64px"/>
+      {% if post.customtitle %}
+        {{ post.customtitle }}
+      {% else %}
+        {{ post.date | date: "%d %B %Y" }}
+      {% endif %}
 
-      	{% if post.imgurl %}
-      		<img src={{post.imgurl}} alt="Atlas release" style="height: 92px"/>
-      	{% endif %}
-      </h3>
-      <p>{{ post.content }}</p>
-    </li>
-  {% endfor %}
-</ul>
+    	{% if post.imgurl %}
+    		<img src={{post.imgurl}} alt="Atlas release" style="height: 92px"/>
+    	{% endif %}
+    </h3>
+    {{ post.content }}
+  </section>
+{% endfor %}

@@ -8,13 +8,23 @@
   <link rel="stylesheet" href="https://ebi.emblstatic.net/web_guidelines/EBI-Icon-fonts/v1.2/fonts.css" type="text/css" media="all" />
   <link rel="stylesheet" href="https://www.ebi.ac.uk/gxa/resources/css/foundation/atlas.css" type="text/css" media="all">
   <link rel="stylesheet" href="https://www.ebi.ac.uk/gxa/resources/css/foundation/theme-atlas.css" type="text/css" media="all">
+
+  <style>
+    section:nth-child(1) {
+      margin-top: 0rem;
+    }
+    section {
+      margin-top: 4rem;
+    }
+    h4 {
+      margin-top: 1rem;
+    }
+  </style>
 </head>
 
 <body>
-  <div class="columns">
-    <section>
-      <h2>Release notes</h2>
-    </section>
+  <h2>Release notes</h2>
+  <div>
     {{ content }}
   </div>
 
