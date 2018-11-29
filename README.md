@@ -19,6 +19,8 @@ To see the site locally:
 bundle exec jekyll serve
 ````
 
+And follow the instructions on the terminal.
+
 ## Post new release notes
 Curators need to create a branch with the name `release/<story-id-from-Pivotal-Tracker>-<project>-<version>` (e.g.
 `release/162089283-gxa-29` and upload a Markdown file with the name formatted as `YYYY-MM-DD-<project>` under the
