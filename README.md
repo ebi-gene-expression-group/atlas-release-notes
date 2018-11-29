@@ -22,7 +22,6 @@ bundle exec jekyll serve
 ## Post new release notes
 Curators need to create a branch with the name `release/<story-id-from-Pivotal-Tracker>-<project>-<version>` (e.g.
 `release/162089283-gxa-29` and upload a Markdown file with the name formatted as `YYYY-MM-DD-<project>` under the
-`_posts` directory. If an image is included, please refer to the post [`2015-03-20-note.md`]
-(https://github.com/ebi-gene-expression-group/atlas-release-notes/blob/master/_posts/2015-03-20-note.md) and upload the
+`_posts` directory. If an image is included, please refer to the post [`2015-03-20-note.md`](https://github.com/ebi-gene-expression-group/atlas-release-notes/blob/master/_posts/2015-03-20-note.md) and upload the
 image to the `assets/img/` directory. After pushing the branch wait for the release to happen and then merge into
 `master`.
