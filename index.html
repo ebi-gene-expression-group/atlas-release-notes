@@ -1,21 +1,32 @@
 ---
 layout: default
-title: Blog
+title: Expression Atlas release notes
 ---
-{% for post in site.posts %}
+
+{% for release-note in site.categories.sc %}
   <section>
     <h3>
-    	<img src="assets/img/atlas-release.png" alt="Atlas release" style="height: 64px"/>
-      {% if post.customtitle %}
-        {{ post.customtitle }}
-      {% else %}
-        {{ post.date | date: "%d %B %Y" }}
-      {% endif %}
+    	<img src="assets/img/atlas-release.png" alt="Single Cell Expression Atlas release" style="height: 64px"/>
+      Single Cell Expression Atlas release {{ release-note.title}} – {{ release-note.date | date: "%B %Y" }}
 
-    	{% if post.imgurl %}
-    		<img src={{post.imgurl}} alt="Atlas release" style="height: 92px"/>
+    	{% if release-note.imgurl %}
+    		<img src={{release-note.imgurl}} style="height: 92px"/>
     	{% endif %}
     </h3>
-    {{ post.content }}
+    {{ release-note.content }}
+  </section>
+{% endfor %}
+
+{% for release-note in site.categories.gxa %}
+  <section>
+    <h3>
+    	<img src="assets/img/atlas-release.png" alt="Expression Atlas release" style="height: 64px"/>
+      Expression Atlas release {{ release-note.title}} – {{ release-note.date | date: "%B %Y" }}
+
+    	{% if release-note.titleimg %}
+    		<img src="assets/img/{{release-note.titleimg}}" style="height: 92px"/>
+    	{% endif %}
+    </h3>
+    {{ release-note.content }}
   </section>
 {% endfor %}
