@@ -23,7 +23,10 @@ And follow the instructions on the terminal.
 
 ## Post new release notes
 Curators need to create a branch with the name `release/<story-id-from-Pivotal-Tracker>-<project>-<version>` (e.g.
-`release/162089283-gxa-29` and upload a Markdown file with the name formatted as `YYYY-MM-DD-<project>` under the
-`_posts` directory. If an image is included, please refer to the post [`2015-03-20-note.md`](https://github.com/ebi-gene-expression-group/atlas-release-notes/blob/master/_posts/2015-03-20-note.md) and upload the
-image to the `assets/img/` directory. After pushing the branch wait for the release to happen and then merge into
-`master`.
+`release/162089283-gxa-29` and upload a Markdown file with the name formatted as `YYYY-MM-DD-<release number>` in the
+directory `release-notes/gxa/_posts` for bulk Expression Atlas releases, or in `release-notes/sc/_posts` for Single
+Cell Expression Atlas releases. If no release number is provided only the date will be displayed, however the
+ending hyphen in the name is mandatory. If an image is included, please refer to the post
+[`2015-03-20-note.md`](https://github.com/ebi-gene-expression-group/atlas-release-notes/blob/master/_posts/2015-03-20-note.md)
+and upload the image to the `assets/img/` directory. After pushing the branch wait for the release to happen and then
+merge into `master`.

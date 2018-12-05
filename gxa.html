@@ -1,0 +1,19 @@
+---
+layout: default
+title: Expression Atlas release notes
+---
+<h4><a href="/gxa/sc/release-notes.html">See release notes of Single Cell Expression Atlas</a></h4>
+
+{% for release-note in site.categories.gxa %}
+  <section>
+    <h3>
+    	<img src="assets/img/atlas-release.png" alt="Expression Atlas release" style="height: 64px"/>
+      Expression Atlas release {{ release-note.title}} – {{ release-note.date | date: "%B %Y" }}
+
+    	{% if release-note.imgurl %}
+    		<img src={{release-note.imgurl}} style="height: 92px"/>
+    	{% endif %}
+    </h3>
+    {{ release-note.content }}
+  </section>
+{% endfor %}

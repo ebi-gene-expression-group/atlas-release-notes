@@ -18,8 +18,6 @@ email: irenep@ebi.ac.uk
 description: >- # this means to ignore newlines until "baseurl:"
   Release notes for Expression Atlas (https://www.ebi.ac.uk/gxa) and Single Cell
   Expression Atlas (https://www.ebi.ac.uk/gxa/sc).
-baseurl: "/gxa/release-notes.html" # the subpath of your site, e.g. /blog
-url: "https://www.ebi.ac.uk" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: ExpressionAtlas
 github_username: ebi-gene-expression-group
 
