@@ -28,9 +28,9 @@ IFS="
 all_species=`curl -s https://wwwdev.ebi.ac.uk/gxa/json/experiments | jq '.experiments | .[].species' | sort -u`
 
 for species in $all_species; do
-	 differential_studies=`curl -s https://wwwdev.ebi.ac.uk/gxa/json/experiments | jq '.experiments | map(select(.species | contains('"$species"'))) | map(select(.experimentType | test("(MICROARRAY)|(DIFFERENTIAL)"; "i"))) | length'`
-	 baseline_studies=`curl -s https://wwwdev.ebi.ac.uk/gxa/json/experiments | jq '.experiments | map(select(.species | contains('"$species"'))) | map(select(.experimentType | test("(BASELINE)"; "i"))) | length'`
-	 singlecell_studies=`curl -s https://wwwdev.ebi.ac.uk/gxa/sc/json/experiments | jq '.experiments | map(select(.species | contains('"$species"'))) | map(select(.experimentType | test("(BASELINE)"; "i"))) | length'`
+	 differential_studies=`curl -s https://wwwdev.ebi.ac.uk/gxa/json/experiments | jq '.experiments | map(select(.species | contains('"$species"'))) | map(select(.rawExperimentType | test("(MICROARRAY)|(DIFFERENTIAL)"; "i"))) | length'`
+	 baseline_studies=`curl -s https://wwwdev.ebi.ac.uk/gxa/json/experiments | jq '.experiments | map(select(.species | contains('"$species"'))) | map(select(.rawExperimentType | test("(BASELINE)"; "i"))) | length'`
+	 singlecell_studies=`curl -s https://wwwdev.ebi.ac.uk/gxa/sc/json/experiments | jq '.experiments | map(select(.species | contains('"$species"'))) | map(select(.rawExperimentType | test("(BASELINE)"; "i"))) | length'`
 	 echo -e $species"\t"$differential_studies"\t"$baseline_studies"\t"$singlecell_studies	>> species_stats.txt
 done
 
