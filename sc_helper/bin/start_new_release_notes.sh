@@ -26,12 +26,9 @@ last_release_epoch_time=$(ls -t release-notes/sc/_posts/ | sed 's/.md//' | awk -
 # Replace wildcards in stats with auto-derived versions
 
 cat sc_helper/release_notes_templates/data_statistics.md | \
-    sed "s/N_STUDIES/$n_studies/" | sed "s/N_CELLS/$raw_cells/" | sed "s/N_CELLS_QC/$filtered_cells/" | sed "s/N_SPECIES/$n_species/" \
-    > $releaseNotesFile
+    sed "s/N_STUDIES/$n_studies/" | sed "s/N_CELLS/$raw_cells/" | sed "s/N_CELLS_QC/$filtered_cells/" | sed "s/N_SPECIES/$n_species/" > $releaseNotesFile
 
 # Do some automated subsitutions on stats here!
-
-echo -e "$stats" > $releaseNotesFile
 
 echo -e "\n#### New experiments" >> $releaseNotesFile
 
