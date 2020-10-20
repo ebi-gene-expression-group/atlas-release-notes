@@ -2,13 +2,13 @@
 
 ## Short cut
 
-The following script will generate a template release notes file at release-notes/sc/_posts/<YEAR>-<MONTH>-<DAY>-<RELEASE>.md:
+The following script will generate a template release notes file at release-notes/sc/_posts/YEAR-MONTH-DAY-RELEASE.md:
 
 ```
 bash sc_helper/bin/start_new_release_notes.sh
 ```
 
-This will guess <YEAR>-<MONTH>-<DAY> based on the current date, and increment from the last release derived from previous release notes. But you can supply these respective parameters as arguments.
+This will guess YEAR-MONTH-DAY based on the current date, and increment from the last release derived from previous release notes. But you can supply these respective parameters as arguments.
 
 You must set ATLAS_SC_EXPERIMENTS correctly and have access to `jq`.
 
