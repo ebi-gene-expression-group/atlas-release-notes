@@ -1,3 +1,21 @@
+# GXA - Bulk release notes
+
+## Short cut
+The following script will generate a template release notes file at release-notes/gxa/_posts/YEAR-MONTH-DAY-RELEASE.md:
+
+
+```
+bash gxa_helper/bin/gxa_release_data_stats.sh <release_number> <list_of_new_differential_studies> <list_of_new_baseline_studies>
+```
+This script will populate data statistic and release notes by extracting data stats and experiment titles using curl and jq queries. 
+
+Firt arg - release_number
+Second args - list of new differential study accession in a newline txt format
+Third args - list of new baseline study accession in a newline txt format
+
+You need to edit release-notes/gxa/_posts/YEAR-MONTH-DAY-RELEASE.md with Ensembl and E! genome WBPS version numbers once popluated
+
+
 # Single cell
 
 ## Short cut
