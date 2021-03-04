@@ -2,6 +2,9 @@
 
 releaseDate=${1:-$(date "+%Y-%m-%d")}
 releaseNumber=${2}
+# Override last release date by exporting outside:
+# export PREVIOUS_RELEASE_DATE=2020-12-03
+
 
 if [ -z "$releaseNumber" ]; then
     lastRelease=$(ls release-notes/sc/_posts/ | sed 's/.md//' | awk -F'-' '{print $4}' | sort -nr | head -n 1)
@@ -22,6 +25,11 @@ all_species=`curl -s https://wwwdev.ebi.ac.uk/gxa/sc/json/experiments | jq '.exp
 n_species=$(echo -e "$all_species" | tr '[:upper:]' '[:lower:]' | wc -l)
 n_studies=$(curl -s https://wwwdev.ebi.ac.uk/gxa/sc/json/experiments | jq '.experiments | map(select(.rawExperimentType | test("(BASELINE)"; "i"))) | length')
 last_release_epoch_time=$(ls -t release-notes/sc/_posts/ | sed 's/.md//' | awk -F'-' '{print $2"/"$3"/"$1}' | while read -r l; do date "+%s" -d "$l"; done | sort -nr | head -n 1)
+
+if [ ! -z "$PREVIOUS_RELEASE_DATE" ]; then
+    # override lastRelease
+    last_release_epoch_time=$(echo $PREVIOUS_RELEASE_DATE | awk -F'-' '{ print $2"/"$3"/"$1}' | while read -r l; do date "+%s" -d "$l"; done | sort -nr | head -n 1)
+fi
 
 # Replace wildcards in stats with auto-derived versions
 
