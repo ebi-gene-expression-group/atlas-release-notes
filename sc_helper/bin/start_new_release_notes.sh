@@ -2,6 +2,7 @@
 
 # Override release date
 # export releaseDate=2020-07-08
+releaseDate=${releaseDate:-$(date "+%Y-%m-%d")}
 # Override release number:
 # export releaseNumber=13
 # Override last release date by exporting outside:
