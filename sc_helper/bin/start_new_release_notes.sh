@@ -29,7 +29,7 @@ n_species=$(echo -e "$all_species" | tr '[:upper:]' '[:lower:]' | wc -l)
 n_studies=$(curl -s https://wwwdev.ebi.ac.uk/gxa/sc/json/experiments | jq '.experiments | map(select(.rawExperimentType | test("(BASELINE)"; "i"))) | length')
 last_release_epoch_time=$(ls -t release-notes/sc/_posts/ | sed 's/.md//' | awk -F'-' '{print $2"/"$3"/"$1}' | while read -r l; do date "+%s" -d "$l"; done | sort -nr | head -n 1)
 
-if [ -n "$previousReleaseDate" ]; then
+if [ -n "$PREVIOUS_RELEASE_DATE" ]; then
     # override lastRelease
     last_release_epoch_time=$(echo $PREVIOUS_RELEASE_DATE | awk -F'-' '{ print $2"/"$3"/"$1}' | while read -r l; do date "+%s" -d "$l"; done | sort -nr | head -n 1)
 fi
