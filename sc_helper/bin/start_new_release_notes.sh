@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-releaseDate=${1:-$(date "+%Y-%m-%d")}
-releaseNumber=${2}
+# Override release date
+# export releaseDate=2020-07-08
+# Override release number:
+# export releaseNumber=13
 # Override last release date by exporting outside:
 # export PREVIOUS_RELEASE_DATE=2020-12-03
 
