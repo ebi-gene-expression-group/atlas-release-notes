@@ -1,10 +1,17 @@
 #!/usr/bin/env bash
 
-releaseNumber=${1}
-listDifferentialStudies=${2}
-listBaselineStudies=${3}
+# Override release date
+# export releaseDate=2020-07-08
+releaseDate=${releaseDate:-$(date "+%Y-%m-%d")}
+# Override release number:
+# export releaseNumber=13
+# Override last release date by exporting outside:
+# export PREVIOUS_RELEASE_DATE=2020-12-03
+# Set list of differential studies to show (accessions, one per line)
+# export listDifferentialStudies=<MULTI_LINE_ACCESSIONS>
+# Set list of baseline studies to show (accessions, one per line)
+# export listBaselineStudies=<MULTI_LINE_ACCESSIONS>
 
-releaseDate=$(date "+%Y-%m-%d")
 
 if [ -z "$releaseNumber" ]; then
     lastRelease=$(ls release-notes/gxa/_posts/ | sed 's/.md//' | awk -F'-' '{print $4}' | sort -nr | head -n 1)
