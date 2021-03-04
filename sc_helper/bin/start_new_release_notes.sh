@@ -9,7 +9,7 @@ releaseNumber=
 previousReleaseDate=
 atlasScExperimentsDir=${ATLAS_SC_EXPERIMENTS:-''}
 
-while getopts ":d:r:p:" o; do
+while getopts ":d:r:p:a:" o; do
     case "${o}" in
         d)
             releaseDate=${OPTARG}
