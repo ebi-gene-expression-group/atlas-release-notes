@@ -26,7 +26,7 @@ The following script will generate a template release notes file at release-note
 bash sc_helper/bin/start_new_release_notes.sh
 ```
 
-This will guess YEAR-MONTH-DAY based on the current date, and increment from the last release derived from previous release notes. But you can supply these respective parameters as arguments.
+This will guess YEAR-MONTH-DAY based on the current date, and increment the release number from the last release derived from previous release notes. But you can supply these respective parameters as arguments or environment variables (see `start_new_release_notes.sh -h`).
 
 You must set ATLAS_SC_EXPERIMENTS correctly and have access to `jq`.
 
