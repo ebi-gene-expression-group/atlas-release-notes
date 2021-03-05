@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
-usage() { echo "Usage: $0 [-d <release date in +%Y-%m-%d, guessed from current date if not set>] [-r <release number, guessed from last release if not set>] [-p <previous release date to compare to, in +%Y-%m-%d, guessed fromlast release if not set>] -a <atlas sc experiments dir, defaults to value of ATLAS_SC_EXPERIMENTS>" 1>&2; }
+usage() { echo "Usage: $0 [-d <release date in +%Y-%m-%d, can also be supplied in env var RELEASE_DATE, guessed from current date if not set>] [-r <release number, can also be supplied in env var RELEASE_NUMBER, guessed from last release if not set>] [-p <previous release date to compare to, in +%Y-%m-%d, can also be supplied in env var PREVIOUS_RELEASE_DATE, guessed from last release if not set>] -a <atlas sc experiments dir, defaults to value of ATLAS_SC_EXPERIMENTS if set>" 1>&2; }
 
 # Parse arguments
 
+releaseDate=${RELEASE_DATE:-''}
 releaseDate=${releaseDate:-$(date "+%Y-%m-%d")}
-releaseNumber=
-previousReleaseDate=
+releaseNumber=${RELEASE_NUMBER:-''}
+previousReleaseDate=${PREVIOUS_RELEASE_DATE:-''}
 atlasScExperimentsDir=${ATLAS_SC_EXPERIMENTS:-''}
 
 while getopts ":d:r:p:a:" o; do
@@ -42,7 +43,7 @@ releaseNotesFile="release-notes/sc/_posts/${releaseDate}-${releaseNumber}.md"
 echo "Will write new release notes to release-notes/sc/_posts/${releaseDate}-${releaseNumber}.md"
 
 if [ -z "$atlasScExperimentsDir" ]; then
-    echo "You need to set atlasScExperimentsDir, or the ATLAS_SC_EXPERIMENTS environment variable." 1>&2
+    echo "You need to supply the path to the Atlas SC experiments dir vi -a, or the ATLAS_SC_EXPERIMENTS environment variable." 1>&2
     exit 1
 fi
 
