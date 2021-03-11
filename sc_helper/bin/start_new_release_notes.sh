@@ -50,7 +50,7 @@ fi
 raw_cells=$(printf "%'.f" $(cat $atlasScExperimentsDir/cell_stats.json | jq '.raw_cells'))
 filtered_cells=$(printf "%'.f" $(cat $atlasScExperimentsDir/cell_stats.json | jq '.filtered_cells'))
 all_species=`curl -s https://wwwdev.ebi.ac.uk/gxa/sc/json/experiments | jq '.experiments | .[].species' | sort -u`
-n_species=$(echo -e "$all_species" | tr '[:upper:]' '[:lower:]' | wc -l)
+n_species=$(echo -e "$all_species" | tr '[:upper:]' '[:lower:]' | sort -u | wc -l)
 n_studies=$(curl -s https://wwwdev.ebi.ac.uk/gxa/sc/json/experiments | jq '.experiments | map(select(.rawExperimentType | test("(BASELINE)"; "i"))) | length')
 
 # Guess last release date if not provided

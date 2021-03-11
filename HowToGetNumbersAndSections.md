@@ -18,6 +18,14 @@ You need to edit release-notes/gxa/_posts/YEAR-MONTH-DAY-RELEASE.md with Ensembl
 
 # Single cell
 
+## Super Short cut
+
+The logic of the short cut can be called directly from our Jenkins setup, search for "Start" and select the "Start_SC_Data_release_notes" job
+
+![image](https://user-images.githubusercontent.com/368478/109993019-c5b0bc00-7d03-11eb-89d4-14a1210d9da4.png)
+
+Then press "Build with parameters". The console output will provide a link with the pushed result to this repo, so that you can start a PR from there.
+
 ## Short cut
 
 The following script will generate a template release notes file at release-notes/sc/_posts/YEAR-MONTH-DAY-RELEASE.md:
