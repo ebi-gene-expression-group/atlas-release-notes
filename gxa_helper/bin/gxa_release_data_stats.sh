@@ -1,28 +1,47 @@
 #!/usr/bin/env bash
 
-releaseNumber=${1}
-listDifferentialStudies=${2}
-listBaselineStudies=${3}
 
-releaseDate=$(date "+%Y-%m-%d")
 
+releaseDate=${RELEASE_DATE:-''}
+releaseDate=${releaseDate:-$(date "+%Y-%m-%d")}
+releaseNumber=${RELEASE_NUMBER:-''}
+previousReleaseDate=${PREVIOUS_RELEASE_DATE:-''}
+
+
+while getopts ":d:r:p:" o; do
+    case "${o}" in
+        d)
+            releaseDate=${OPTARG}
+            ;;
+        r)
+            releaseNumber=${OPTARG}
+            ;;
+        p)
+            previousReleaseDate=${OPTARG}
+            ;;
+        *)
+            usage
+            exit 0
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+# Guess release number from last release
 if [ -z "$releaseNumber" ]; then
     lastRelease=$(ls release-notes/gxa/_posts/ | sed 's/.md//' | awk -F'-' '{print $4}' | sort -nr | head -n 1)
     releaseNumber=$(($lastRelease + 1))
 fi
 
+# Guess last release date if not provided
+if [ -n "$previousReleaseDate" ]; then
+    last_release_epoch_time=$(echo $previousReleaseDate | awk -F'-' '{ print $2"/"$3"/"$1}' | while read -r l; do date "+%s" -d "$l"; done | sort -nr | head -n 1)
+else
+    last_release_epoch_time=$(ls -t release-notes/gxa/_posts/ | sed 's/.md//' | awk -F'-' '{print $2"/"$3"/"$1}' | while read -r l; do date "+%s" -d "$l"; done | sort -nr | head -n 1)
+fi
+
 releaseNotesFile="release-notes/gxa/_posts/${releaseDate}-${releaseNumber}.md"
-echo "Will write new release notes to release-notes/gxa/_posts/${releaseDate}-${releaseNumber}.md"
-
-gxa_get_exp_titles(){
-	study_list=$1
-	studies=$(cat ${study_list} | cut -f1 | grep  -oe 'E-[[:upper:]]*-[[:digit:]]*')
-
-	for expAcc in $studies; do
- 		title=$(curl -s  "https://wwwdev.ebi.ac.uk/gxa/experiments/$expAcc/Results" | grep -A1  'goto-experiment' | grep -v '<h3 id=' | sed -e 's/^[ \t]*//')
- 		echo -e "\t- [$title](https://www.ebi.ac.uk/gxa/experiments/$expAcc)"
-	done
-}
+echo "Will write new release notes to $releaseNotesFile"
 
 #Number of experiments
 n_studies=$(curl -s https://wwwdev.ebi.ac.uk/gxa/json/experiments | jq '.experiments | length')
@@ -70,10 +89,14 @@ echo -e "\n\n\n#### New experiments" >> $releaseNotesFile
 
 echo -e "\n- New Differential experiments" >> $releaseNotesFile
 ## parse list of new differential studies to get write experiment titles
-gxa_get_exp_titles $listDifferentialStudies >> $releaseNotesFile
+curl 'https://wwwdev.ebi.ac.uk/gxa/json/experiments' | \
+    jq -r '.experiments | .[] | select(.loadDate | strptime("%d-%m-%Y") | mktime > '$last_release_epoch_time') | select(.experimentType == "Differential" ) | [.experimentAccession, .experimentDescription] | @csv' | \
+    awk -v FS="," '{ printf "- [%s](https://www.ebi.ac.uk/gxa/experiments/%s)\n", $2, $1}' | sed s/\"//g >> $releaseNotesFile
 
 echo -e "\n- New Baseline experiments" >> $releaseNotesFile
 ## parse list of new differential studies to get write experiment titles
-gxa_get_exp_titles $listBaselineStudies >> $releaseNotesFile
+curl 'https://wwwdev.ebi.ac.uk/gxa/json/experiments' | \
+    jq -r '.experiments | .[] | select(.loadDate | strptime("%d-%m-%Y") | mktime > '$last_release_epoch_time') | select(.experimentType == "Baseline" ) | [.experimentAccession, .experimentDescription] | @csv' | \
+    awk -v FS="," '{ printf "- [%s](https://www.ebi.ac.uk/gxa/experiments/%s)\n", $2, $1}' | sed s/\"//g >> $releaseNotesFile
 
 
