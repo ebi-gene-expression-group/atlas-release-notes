@@ -90,13 +90,13 @@ echo -e "\n\n\n#### New experiments" >> $releaseNotesFile
 echo -e "\n- New Differential experiments" >> $releaseNotesFile
 ## parse list of new differential studies to get write experiment titles
 curl 'https://wwwdev.ebi.ac.uk/gxa/json/experiments' | \
-    jq -r '.experiments | .[] | select(.loadDate | strptime("%d-%m-%Y") | mktime > '$last_release_epoch_time') | select(.experimentType == "Differential" ) | [.experimentAccession, .experimentDescription] | @csv' | \
+    jq -r '.experiments | .[] | select(.loadDate | strptime("%d-%m-%Y") | mktime > '$last_release_epoch_time') | select(.rawExperimentType | test("DIFFERENTIAL"; "i")) | [.experimentAccession, .experimentDescription] | @csv' | \
     awk -v FS="," '{ printf "- [%s](https://www.ebi.ac.uk/gxa/experiments/%s)\n", $2, $1}' | sed s/\"//g >> $releaseNotesFile
 
 echo -e "\n- New Baseline experiments" >> $releaseNotesFile
 ## parse list of new differential studies to get write experiment titles
 curl 'https://wwwdev.ebi.ac.uk/gxa/json/experiments' | \
-    jq -r '.experiments | .[] | select(.loadDate | strptime("%d-%m-%Y") | mktime > '$last_release_epoch_time') | select(.experimentType == "Baseline" ) | [.experimentAccession, .experimentDescription] | @csv' | \
+    jq -r '.experiments | .[] | select(.loadDate | strptime("%d-%m-%Y") | mktime > '$last_release_epoch_time') | select(.rawExperimentType | test("BASELINE"; "i")) | [.experimentAccession, .experimentDescription] | @csv' | \
     awk -v FS="," '{ printf "- [%s](https://www.ebi.ac.uk/gxa/experiments/%s)\n", $2, $1}' | sed s/\"//g >> $releaseNotesFile
 
 
