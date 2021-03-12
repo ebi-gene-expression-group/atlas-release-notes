@@ -85,15 +85,15 @@ cat gxa_helper/release_notes_templates/gxa_data_statistics.md | \
     | sed "s/N_DIFFERENTIAL/$n_differential/" | sed "s/N_DIFFERENTIAL_SAMPLES/$n_differential_samples/" \
     | sed "s/N_DIFF_SPECIES/$n_differential_species/g" | sed "s/N_SPECIES/$n_species/"  > $releaseNotesFile
 
-echo -e "\n\n\n#### New experiments" >> $releaseNotesFile
+echo -e "\n\n\n#### Selected new experiments" >> $releaseNotesFile
 
-echo -e "\n- New Differential experiments" >> $releaseNotesFile
+echo -e "\n#### Selected differential experiments\n" >> $releaseNotesFile
 ## parse list of new differential studies to get write experiment titles
 curl 'https://wwwdev.ebi.ac.uk/gxa/json/experiments' | \
     jq -r '.experiments | .[] | select(.loadDate | strptime("%d-%m-%Y") | mktime > '$last_release_epoch_time') | select(.rawExperimentType | test("DIFFERENTIAL"; "i")) | [.experimentAccession, .experimentDescription] | @csv' | \
     awk -v FS="," '{ printf "- [%s](https://www.ebi.ac.uk/gxa/experiments/%s)\n", $2, $1}' | sed s/\"//g >> $releaseNotesFile
 
-echo -e "\n- New Baseline experiments" >> $releaseNotesFile
+echo -e "\n#### Selected baseline experiments\n" >> $releaseNotesFile
 ## parse list of new differential studies to get write experiment titles
 curl 'https://wwwdev.ebi.ac.uk/gxa/json/experiments' | \
     jq -r '.experiments | .[] | select(.loadDate | strptime("%d-%m-%Y") | mktime > '$last_release_epoch_time') | select(.rawExperimentType | test("BASELINE"; "i")) | [.experimentAccession, .experimentDescription] | @csv' | \
