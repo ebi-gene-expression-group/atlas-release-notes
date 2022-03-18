@@ -72,7 +72,7 @@ echo -e "\n#### New experiments" >> $releaseNotesFile
 
 curl 'https://wwwdev.ebi.ac.uk/gxa/sc/json/experiments' | 
     jq -r '.experiments | .[] | select(.lastUpdate | strptime("%d-%m-%Y") | mktime > '$last_release_epoch_time') | [.experimentAccession, .experimentDescription] | @csv' | \
-    awk -v FS="," '{ printf "- [%s](https://www.ebi.ac.uk/gxa/sc/experiments/%s)\n", $2, $1}' | sed s/\"//g >> $releaseNotesFile
+    awk -v FPAT="^([^,]+)|(\"[^\"]+\")$" '{ printf "- [%s](https://www.ebi.ac.uk/gxa/sc/experiments/%s)\n", $2, $1}' | sed s/\"//g >> $releaseNotesFile
 
 echo -e "\n#### New features" >> $releaseNotesFile
 
