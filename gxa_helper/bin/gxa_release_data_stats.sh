@@ -92,7 +92,6 @@ echo -e "\n#### Selected differential experiments\n" >> $releaseNotesFile
 curl 'https://wwwdev.ebi.ac.uk/gxa/json/experiments' | \
     jq -r '.experiments | .[] | select(.loadDate | strptime("%d-%m-%Y") | mktime > '$last_release_epoch_time') | select(.rawExperimentType | test("DIFFERENTIAL"; "i")) | [.experimentAccession, .experimentDescription] | @tsv' | \
     awk -F'\t' '{ printf "- [%s](https://www.ebi.ac.uk/gxa/experiments/%s)\n", $2, $1}' | sed s/\"//g >> $releaseNotesFile
-    awk -v FPAT="^([^,]+)|(\"[^\"]+\")$" '{ printf "- [%s](https://www.ebi.ac.uk/gxa/experiments/%s)\n", $2, $1}' | sed s/\"//g >> $releaseNotesFile
 
 echo -e "\n#### Selected baseline experiments\n" >> $releaseNotesFile
 ## parse list of new differential studies to get write experiment titles
